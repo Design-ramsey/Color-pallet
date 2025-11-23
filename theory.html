@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Theory Guide - ChromaCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --primary-light: #fafafa;
+            --accent-coral: #ff6b6b;
+            --accent-sage: #4ecdc4;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #495057;
+            --gray-900: #212529;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        .theory-hero {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%),
+                        url('resources/color-theory-bg.jpg') center/cover;
+            min-height: 60vh;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .color-wheel-demo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .harmony-example {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .harmony-example:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .color-psychology-card {
+            transition: all 0.3s ease;
+        }
+        
+        .color-psychology-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .interactive-demo {
+            border: 2px dashed #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-demo:hover {
+            border-color: var(--accent-coral);
+            background: rgba(255, 107, 107, 0.05);
+        }
+        
+        .quiz-option {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .quiz-option:hover {
+            background: var(--gray-100);
+        }
+        
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">ChromaCraft</h1>
+                    <span class="ml-2 text-sm text-gray-600">Professional Color Palette Generator</span>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">Generator</a>
+                    <a href="theory.html" class="text-gray-900 font-medium border-b-2 border-red-400 pb-1">Color Theory</a>
+                    <a href="library.html" class="text-gray-600 hover:text-gray-900 transition-colors">Library</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="theory-hero pt-20 pb-16 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-5xl font-bold text-gray-900 mb-6">Master Color Theory</h2>
+            <p class="text-xl text-gray-700 max-w-3xl mx-auto">Understanding color theory is essential for creating harmonious and impactful designs. Learn the fundamental principles that guide professional color selection.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Color Theory Fundamentals -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Color Theory Fundamentals</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h4 class="text-2xl font-semibold mb-4">The Color Wheel</h4>
+                    <p class="text-gray-600 mb-6">The color wheel is the foundation of color theory, showing the relationships between colors. It was invented by Isaac Newton in 1666 and remains essential for understanding color harmony.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 bg-red-500 rounded-full mr-3 mt-1"></div>
+                            <div>
+                                <h5 class="font-semibold">Primary Colors</h5>
+                                <p class="text-gray-600 text-sm">Red, blue, and yellow - cannot be created by mixing other colors</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 bg-purple-500 rounded-full mr-3 mt-1"></div>
+                            <div>
+                                <h5 class="font-semibold">Secondary Colors</h5>
+                                <p class="text-gray-600 text-sm">Green, orange, and purple - created by mixing primary colors</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 bg-orange-400 rounded-full mr-3 mt-1"></div>
+                            <div>
+                                <h5 class="font-semibold">Tertiary Colors</h5>
+                                <p class="text-gray-600 text-sm">Combinations of primary and secondary colors</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div id="color-wheel-demo" class="color-wheel-demo mx-auto mb-4"></div>
+                    <p class="text-sm text-gray-600">Interactive color wheel showing primary, secondary, and tertiary relationships</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Harmony Rules -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Color Harmony Rules</h3>
+            <p class="text-gray-600 mb-8 max-w-3xl">Color harmony creates visual interest and a sense of order through color combinations. These time-tested rules help designers create balanced and pleasing palettes.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Complementary -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Complementary</h4>
+                    <p class="text-gray-600 text-sm mb-4">Colors opposite each other on the color wheel create maximum contrast and visual impact.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-blue-500"></div>
+                        <div class="flex-1 h-16 rounded bg-orange-500"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> High contrast, energetic designs, call-to-action buttons
+                    </div>
+                </div>
+                
+                <!-- Analogous -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Analogous</h4>
+                    <p class="text-gray-600 text-sm mb-4">Colors next to each other on the color wheel create harmony and natural flow.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-blue-500"></div>
+                        <div class="flex-1 h-16 rounded bg-blue-400"></div>
+                        <div class="flex-1 h-16 rounded bg-green-400"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> Calming designs, nature themes, backgrounds
+                    </div>
+                </div>
+                
+                <!-- Triadic -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Triadic</h4>
+                    <p class="text-gray-600 text-sm mb-4">Three colors evenly spaced on the wheel create vibrant, balanced compositions.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-red-500"></div>
+                        <div class="flex-1 h-16 rounded bg-yellow-500"></div>
+                        <div class="flex-1 h-16 rounded bg-blue-500"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> Playful designs, children's brands, creative projects
+                    </div>
+                </div>
+                
+                <!-- Split Complementary -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Split Complementary</h4>
+                    <p class="text-gray-600 text-sm mb-4">Base color plus two adjacent to its complement for sophisticated contrast.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-blue-500"></div>
+                        <div class="flex-1 h-16 rounded bg-orange-400"></div>
+                        <div class="flex-1 h-16 rounded bg-red-400"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> Professional designs, balanced contrast, logos
+                    </div>
+                </div>
+                
+                <!-- Tetradic -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Tetradic</h4>
+                    <p class="text-gray-600 text-sm mb-4">Four colors evenly spaced for rich, complex color schemes.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-red-500"></div>
+                        <div class="flex-1 h-16 rounded bg-yellow-500"></div>
+                        <div class="flex-1 h-16 rounded bg-green-500"></div>
+                        <div class="flex-1 h-16 rounded bg-blue-500"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> Complex designs, creative freedom, artistic projects
+                    </div>
+                </div>
+                
+                <!-- Monochromatic -->
+                <div class="harmony-example bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Monochromatic</h4>
+                    <p class="text-gray-600 text-sm mb-4">Variations of a single color create elegant, sophisticated looks.</p>
+                    <div class="flex space-x-2 mb-4">
+                        <div class="flex-1 h-16 rounded bg-blue-800"></div>
+                        <div class="flex-1 h-16 rounded bg-blue-600"></div>
+                        <div class="flex-1 h-16 rounded bg-blue-400"></div>
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        <strong>Best for:</strong> Minimalist designs, luxury brands, elegant interfaces
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Psychology -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Color Psychology</h3>
+            <p class="text-gray-600 mb-8 max-w-3xl">Colors evoke emotions and influence behavior. Understanding color psychology helps you choose colors that align with your message and audience.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Red -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Red</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Passion, energy, urgency, love, danger</div>
+                        <div><strong>Uses:</strong> Call-to-action buttons, food brands, entertainment</div>
+                        <div><strong>Cultural:</strong> Luck in China, danger in Western cultures</div>
+                    </div>
+                </div>
+                
+                <!-- Blue -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Blue</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Trust, calm, stability, professionalism</div>
+                        <div><strong>Uses:</strong> Corporate brands, healthcare, technology</div>
+                        <div><strong>Cultural:</strong> Masculine in Western cultures, immortality in China</div>
+                    </div>
+                </div>
+                
+                <!-- Green -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Green</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Nature, growth, health, wealth, harmony</div>
+                        <div><strong>Uses:</strong> Environmental brands, finance, wellness</div>
+                        <div><strong>Cultural:</strong> Islam, environmental movement, money in US</div>
+                    </div>
+                </div>
+                
+                <!-- Yellow -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Yellow</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Happiness, optimism, caution, energy</div>
+                        <div><strong>Uses:</strong> Children's brands, warnings, creativity</div>
+                        <div><strong>Cultural:</strong> Royalty in China, caution in Western cultures</div>
+                    </div>
+                </div>
+                
+                <!-- Orange -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Orange</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Enthusiasm, creativity, warmth, adventure</div>
+                        <div><strong>Uses:</strong> Food brands, sports, youth-oriented products</div>
+                        <div><strong>Cultural:</strong> Halloween, autumn, Buddhism</div>
+                    </div>
+                </div>
+                
+                <!-- Purple -->
+                <div class="color-psychology-card bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg mr-4"></div>
+                        <h4 class="text-xl font-semibold">Purple</h4>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong>Emotions:</strong> Luxury, mystery, spirituality, creativity</div>
+                        <div><strong>Uses:</strong> Premium brands, beauty, meditation apps</div>
+                        <div><strong>Cultural:</strong> Royalty, luxury, spirituality</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Warm vs Cool Colors -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Warm vs Cool Colors</h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h4 class="text-2xl font-semibold mb-4 text-orange-600">Warm Colors</h4>
+                    <p class="text-gray-600 mb-6">Associated with fire, sun, and heat. These colors energize and stimulate emotions.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-red-500 rounded mr-3"></div>
+                            <span>Red - Passion, energy, urgency</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-orange-500 rounded mr-3"></div>
+                            <span>Orange - Enthusiasm, creativity</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-yellow-500 rounded mr-3"></div>
+                            <span>Yellow - Happiness, optimism</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-orange-50 rounded-lg">
+                        <h5 class="font-semibold text-orange-800 mb-2">Best Applications:</h5>
+                        <ul class="text-sm text-orange-700 space-y-1">
+                            <li>• Call-to-action buttons</li>
+                            <li>• Food and restaurant branding</li>
+                            <li>• Entertainment and sports</li>
+                            <li>• Creating urgency and excitement</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h4 class="text-2xl font-semibold mb-4 text-blue-600">Cool Colors</h4>
+                    <p class="text-gray-600 mb-6">Associated with water, sky, and nature. These colors calm and promote tranquility.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-blue-500 rounded mr-3"></div>
+                            <span>Blue - Trust, stability, calm</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-green-500 rounded mr-3"></div>
+                            <span>Green - Nature, growth, health</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-purple-500 rounded mr-3"></div>
+                            <span>Purple - Luxury, mystery, spirituality</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <h5 class="font-semibold text-blue-800 mb-2">Best Applications:</h5>
+                        <ul class="text-sm text-blue-700 space-y-1">
+                            <li>• Corporate and professional branding</li>
+                            <li>• Healthcare and wellness</li>
+                            <li>• Technology and finance</li>
+                            <li>• Creating trust and reliability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Color Harmony Demo -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Interactive Harmony Demo</h3>
+            <p class="text-gray-600 mb-8">Click on different harmony rules to see how they work with various base colors.</p>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">Select Base Color</h4>
+                        <div class="grid grid-cols-6 gap-3 mb-6">
+                            <button class="base-color w-12 h-12 rounded-lg bg-red-500" data-hue="0"></button>
+                            <button class="base-color w-12 h-12 rounded-lg bg-orange-500" data-hue="30"></button>
+                            <button class="base-color w-12 h-12 rounded-lg bg-yellow-500" data-hue="60"></button>
+                            <button class="base-color w-12 h-12 rounded-lg bg-green-500" data-hue="120"></button>
+                            <button class="base-color w-12 h-12 rounded-lg bg-blue-500" data-hue="240"></button>
+                            <button class="base-color w-12 h-12 rounded-lg bg-purple-500" data-hue="280"></button>
+                        </div>
+                        
+                        <h4 class="text-xl font-semibold mb-4">Choose Harmony Rule</h4>
+                        <div class="space-y-2">
+                            <button class="harmony-demo-btn w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50" data-rule="complementary">Complementary</button>
+                            <button class="harmony-demo-btn w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50" data-rule="analogous">Analogous</button>
+                            <button class="harmony-demo-btn w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50" data-rule="triadic">Triadic</button>
+                            <button class="harmony-demo-btn w-full text-left p-3 rounded-lg border border-gray-200 hover:bg-gray-50" data-rule="split-complementary">Split Complementary</button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">Resulting Palette</h4>
+                        <div id="demo-palette" class="space-y-3">
+                            <div class="text-gray-500 text-center py-8">Select a base color and harmony rule to see the palette</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Accessibility -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Color Accessibility</h3>
+            <p class="text-gray-600 mb-8 max-w-3xl">Creating accessible color combinations ensures your designs work for everyone, including people with color vision deficiencies.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-4">WCAG Guidelines</h4>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                            <h5 class="font-semibold text-green-800">AA Level (Minimum)</h5>
+                            <p class="text-sm text-green-700">4.5:1 contrast ratio for normal text</p>
+                            <p class="text-sm text-green-700">3:1 contrast ratio for large text (18pt+)</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <h5 class="font-semibold text-blue-800">AAA Level (Enhanced)</h5>
+                            <p class="text-sm text-blue-700">7:1 contrast ratio for normal text</p>
+                            <p class="text-sm text-blue-700">4.5:1 contrast ratio for large text</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-4">Color Blindness Types</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-red-500 rounded mr-3"></div>
+                            <span class="text-sm">Protanopia (Red-blind)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-500 rounded mr-3"></div>
+                            <span class="text-sm">Deuteranopia (Green-blind)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                            <span class="text-sm">Tritanopia (Blue-blind)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-yellow-50 rounded-lg">
+                        <p class="text-sm text-yellow-800"><strong>Tip:</strong> Always test your color combinations with color blindness simulators to ensure accessibility.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color Theory Quiz -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Test Your Knowledge</h3>
+            <p class="text-gray-600 mb-8">Take this quick quiz to test your understanding of color theory principles.</p>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div id="quiz-container">
+                    <div class="quiz-question mb-8">
+                        <h4 class="text-xl font-semibold mb-4">Question 1 of 5</h4>
+                        <p class="text-gray-700 mb-6">Which color harmony rule uses colors opposite each other on the color wheel?</p>
+                        
+                        <div class="space-y-3">
+                            <div class="quiz-option p-4 border border-gray-200 rounded-lg" data-answer="correct">
+                                Complementary
+                            </div>
+                            <div class="quiz-option p-4 border border-gray-200 rounded-lg" data-answer="incorrect">
+                                Analogous
+                            </div>
+                            <div class="quiz-option p-4 border border-gray-200 rounded-lg" data-answer="incorrect">
+                                Triadic
+                            </div>
+                            <div class="quiz-option p-4 border border-gray-200 rounded-lg" data-answer="incorrect">
+                                Monochromatic
+                            </div>
+                        </div>
+                        
+                        <button id="next-question" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" style="display: none;">
+                            Next Question
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="quiz-results" class="text-center" style="display: none;">
+                    <h4 class="text-2xl font-semibold mb-4">Quiz Complete!</h4>
+                    <p class="text-gray-600 mb-6">Your score: <span id="quiz-score" class="font-bold text-blue-600">0/5</span></p>
+                    <button id="restart-quiz" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Take Quiz Again
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Applications -->
+        <section class="mb-16">
+            <h3 class="text-3xl font-bold text-gray-900 mb-8">Practical Applications</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Branding & Logo Design</h4>
+                    <p class="text-gray-600 text-sm mb-4">Color choices in branding communicate brand values and personality instantly.</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Red: Energy, passion, urgency</li>
+                        <li>• Blue: Trust, reliability, professionalism</li>
+                        <li>• Green: Growth, health, sustainability</li>
+                        <li>• Purple: Luxury, creativity, innovation</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Web Design & UI</h4>
+                    <p class="text-gray-600 text-sm mb-4">Color in interfaces guides user attention and improves usability.</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Primary actions: High contrast colors</li>
+                        <li>• Secondary actions: Muted colors</li>
+                        <li>• Error states: Red or orange</li>
+                        <li>• Success states: Green or blue</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h4 class="text-xl font-semibold mb-3">Marketing & Advertising</h4>
+                    <p class="text-gray-600 text-sm mb-4">Strategic color use can influence purchasing decisions and brand perception.</p>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li>• Red: Creates urgency and excitement</li>
+                        <li>• Blue: Builds trust and security</li>
+                        <li>• Green: Associated with money and nature</li>
+                        <li>• Orange: Encourages impulse purchases</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
+            <h3 class="text-3xl font-bold mb-4">Ready to Create Amazing Palettes?</h3>
+            <p class="text-xl mb-8 opacity-90">Put your color theory knowledge into practice with our professional palette generator.</p>
+            <a href="index.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Start Creating Palettes
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">&copy; 2024 ChromaCraft. Professional color palette generation tools.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive color wheel demo
+        const wheelSketch = (p) => {
+            p.setup = () => {
+                const canvas = p.createCanvas(300, 300);
+                canvas.parent('color-wheel-demo');
+            };
+            
+            p.draw = () => {
+                p.colorMode(p.HSB, 360, 100, 100);
+                p.translate(p.width/2, p.height/2);
+                
+                for (let angle = 0; angle < 360; angle += 1) {
+                    for (let radius = 20; radius < 140; radius += 2) {
+                        const x = p.cos(p.radians(angle)) * radius;
+                        const y = p.sin(p.radians(angle)) * radius;
+                        
+                        const saturation = p.map(radius, 20, 140, 100, 0);
+                        p.fill(angle, saturation, 100);
+                        p.noStroke();
+                        p.ellipse(x, y, 3);
+                    }
+                }
+                
+                // Draw primary colors
+                const primaryColors = [
+                    { h: 0, label: "Red" },
+                    { h: 120, label: "Green" },
+                    { h: 240, label: "Blue" }
+                ];
+                
+                primaryColors.forEach(color => {
+                    const x = p.cos(p.radians(color.h)) * 100;
+                    const y = p.sin(p.radians(color.h)) * 100;
+                    p.fill(color.h, 100, 100);
+                    p.ellipse(x, y, 20);
+                    
+                    p.fill(0);
+                    p.textAlign(p.CENTER);
+                    p.textSize(10);
+                    p.text(color.label, x, y + 35);
+                });
+            };
+        };
+        
+        new p5(wheelSketch);
+        
+        // Interactive harmony demo
+        let currentBaseHue = 0;
+        let currentHarmonyRule = 'complementary';
+        
+        document.querySelectorAll('.base-color').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentBaseHue = parseInt(btn.dataset.hue);
+                updateDemoPalette();
+                
+                document.querySelectorAll('.base-color').forEach(b => b.classList.remove('ring-4', 'ring-gray-400'));
+                btn.classList.add('ring-4', 'ring-gray-400');
+            });
+        });
+        
+        document.querySelectorAll('.harmony-demo-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentHarmonyRule = btn.dataset.rule;
+                updateDemoPalette();
+                
+                document.querySelectorAll('.harmony-demo-btn').forEach(b => b.classList.remove('bg-blue-100', 'border-blue-400'));
+                btn.classList.add('bg-blue-100', 'border-blue-400');
+            });
+        });
+        
+        function updateDemoPalette() {
+            const container = document.getElementById('demo-palette');
+            const baseColor = { h: currentBaseHue, s: 70, l: 60 };
+            let colors = [];
+            
+            switch (currentHarmonyRule) {
+                case 'complementary':
+                    colors = [baseColor, { h: (baseColor.h + 180) % 360, s: 70, l: 60 }];
+                    break;
+                case 'analogous':
+                    colors = [
+                        { h: (baseColor.h - 30 + 360) % 360, s: 70, l: 60 },
+                        baseColor,
+                        { h: (baseColor.h + 30) % 360, s: 70, l: 60 }
+                    ];
+                    break;
+                case 'triadic':
+                    colors = [
+                        baseColor,
+                        { h: (baseColor.h + 120) % 360, s: 70, l: 60 },
+                        { h: (baseColor.h + 240) % 360, s: 70, l: 60 }
+                    ];
+                    break;
+                case 'split-complementary':
+                    colors = [
+                        baseColor,
+                        { h: (baseColor.h + 150) % 360, s: 70, l: 60 },
+                        { h: (baseColor.h + 210) % 360, s: 70, l: 60 }
+                    ];
+                    break;
+            }
+            
+            container.innerHTML = colors.map(color => {
+                const hex = hslToHex(color.h, color.s, color.l);
+                return `<div class="h-16 rounded-lg flex items-center justify-center text-white font-mono text-sm" style="background-color: ${hex}">${hex}</div>`;
+            }).join('');
+        }
+        
+        function hslToHex(h, s, l) {
+            l /= 100;
+            const a = s * Math.min(l, 1 - l) / 100;
+            const f = n => {
+                const k = (n + h / 30) % 12;
+                const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+                return Math.round(255 * color).toString(16).padStart(2, '0');
+            };
+            return `#${f(0)}${f(8)}${f(4)}`;
+        }
+        
+        // Quiz functionality
+        const quizQuestions = [
+            {
+                question: "Which color harmony rule uses colors opposite each other on the color wheel?",
+                options: ["Complementary", "Analogous", "Triadic", "Monochromatic"],
+                correct: 0
+            },
+            {
+                question: "What emotion is most commonly associated with the color blue?",
+                options: ["Excitement", "Trust", "Urgency", "Creativity"],
+                correct: 1
+            },
+            {
+                question: "Which colors are considered warm colors?",
+                options: ["Blue, Green, Purple", "Red, Orange, Yellow", "All pastels", "Black and White"],
+                correct: 1
+            },
+            {
+                question: "What is the minimum contrast ratio required for WCAG AA compliance?",
+                options: ["3:1", "4.5:1", "7:1", "10:1"],
+                correct: 1
+            },
+            {
+                question: "Which color harmony creates the most subtle and elegant combinations?",
+                options: ["Complementary", "Triadic", "Monochromatic", "Tetradic"],
+                correct: 2
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+        
+        function showQuestion() {
+            if (currentQuestion >= quizQuestions.length) {
+                showResults();
+                return;
+            }
+            
+            const q = quizQuestions[currentQuestion];
+            const container = document.querySelector('.quiz-question');
+            
+            container.innerHTML = `
+                <h4 class="text-xl font-semibold mb-4">Question ${currentQuestion + 1} of ${quizQuestions.length}</h4>
+                <p class="text-gray-700 mb-6">${q.question}</p>
+                <div class="space-y-3">
+                    ${q.options.map((option, index) => `
+                        <div class="quiz-option p-4 border border-gray-200 rounded-lg" data-answer="${index === q.correct ? 'correct' : 'incorrect'}" data-index="${index}">
+                            ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                <button id="next-question" class="mt-6 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors" style="display: none;">
+                    ${currentQuestion === quizQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                </button>
+            `;
+            
+            // Add event listeners
+            container.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', handleAnswer);
+            });
+            
+            document.getElementById('next-question').addEventListener('click', nextQuestion);
+        }
+        
+        function handleAnswer(e) {
+            const option = e.target;
+            const isCorrect = option.dataset.answer === 'correct';
+            
+            if (isCorrect) {
+                option.classList.add('correct');
+                score++;
+            } else {
+                option.classList.add('incorrect');
+                // Show correct answer
+                document.querySelectorAll('.quiz-option').forEach(opt => {
+                    if (opt.dataset.answer === 'correct') {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            // Disable further clicks
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.removeEventListener('click', handleAnswer);
+                opt.style.pointerEvents = 'none';
+            });
+            
+            document.getElementById('next-question').style.display = 'block';
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+        
+        function showResults() {
+            document.querySelector('.quiz-question').style.display = 'none';
+            document.getElementById('quiz-results').style.display = 'block';
+            document.getElementById('quiz-score').textContent = `${score}/${quizQuestions.length}`;
+        }
+        
+        document.getElementById('restart-quiz').addEventListener('click', () => {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('quiz-results').style.display = 'none';
+            document.querySelector('.quiz-question').style.display = 'block';
+            showQuestion();
+        });
+        
+        // Initialize quiz
+        showQuestion();
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.bg-white').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

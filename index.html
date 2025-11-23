@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChromaCraft - Professional Color Palette Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --primary-light: #fafafa;
+            --accent-coral: #ff6b6b;
+            --accent-sage: #4ecdc4;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-600: #6c757d;
+            --gray-800: #495057;
+            --gray-900: #212529;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+        
+        .color-wheel-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .color-swatch {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .harmony-tab {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .harmony-tab.active {
+            border-bottom-color: var(--accent-coral);
+            color: var(--accent-coral);
+        }
+        
+        .control-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--gray-200);
+            outline: none;
+        }
+        
+        .control-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-coral);
+            cursor: pointer;
+        }
+        
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: var(--gray-900);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .accessibility-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+        
+        .accessibility-pass {
+            background: #28a745;
+        }
+        
+        .accessibility-fail {
+            background: #dc3545;
+        }
+        
+        .palette-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .palette-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particle-bg" class="particle-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">ChromaCraft</h1>
+                    <span class="ml-2 text-sm text-gray-600">Professional Color Palette Generator</span>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="index.html" class="text-gray-900 font-medium border-b-2 border-red-400 pb-1">Generator</a>
+                    <a href="theory.html" class="text-gray-600 hover:text-gray-900 transition-colors">Color Theory</a>
+                    <a href="library.html" class="text-gray-600 hover:text-gray-900 transition-colors">Library</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Create Perfect Color Palettes</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Professional color harmony tools powered by advanced color theory algorithms. Generate, refine, and export beautiful color palettes for your next project.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Generator Interface -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Color Wheel Section -->
+            <div class="lg:col-span-5">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Interactive Color Wheel</h3>
+                    <div class="color-wheel-container">
+                        <div id="color-wheel"></div>
+                        <div id="color-picker" class="absolute w-6 h-6 rounded-full border-2 border-white shadow-lg cursor-pointer" style="display: none;"></div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-600">Click anywhere on the wheel to select your base color</div>
+                    </div>
+                </div>
+                
+                <!-- Harmony Rules -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4">Harmony Rules</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="harmony-tab active px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="complementary">Complementary</button>
+                        <button class="harmony-tab px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="analogous">Analogous</button>
+                        <button class="harmony-tab px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="triadic">Triadic</button>
+                        <button class="harmony-tab px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="split-complementary">Split Comp</button>
+                        <button class="harmony-tab px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="tetradic">Tetradic</button>
+                        <button class="harmony-tab px-3 py-2 text-sm rounded-lg bg-gray-50" data-rule="monochromatic">Monochrome</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Palette Display Section -->
+            <div class="lg:col-span-4">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Generated Palette</h3>
+                    <div id="palette-display" class="space-y-3">
+                        <!-- Palette colors will be generated here -->
+                    </div>
+                    <div class="mt-6 flex space-x-3">
+                        <button id="save-palette" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">Save Palette</button>
+                        <button id="export-palette" class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors">Export</button>
+                    </div>
+                </div>
+                
+                <!-- Color Information -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4">Color Information</h3>
+                    <div id="color-info" class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">HEX:</span>
+                            <span id="hex-value" class="font-mono">#ff6b6b</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">RGB:</span>
+                            <span id="rgb-value" class="font-mono">255, 107, 107</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">HSL:</span>
+                            <span id="hsl-value" class="font-mono">0°, 100%, 71%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls Section -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Fine Controls</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Hue</label>
+                            <input type="range" id="hue-slider" class="control-slider w-full" min="0" max="360" value="0">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Saturation</label>
+                            <input type="range" id="saturation-slider" class="control-slider w-full" min="0" max="100" value="100">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Lightness</label>
+                            <input type="range" id="lightness-slider" class="control-slider w-full" min="0" max="100" value="71">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Temperature</label>
+                            <input type="range" id="temperature-slider" class="control-slider w-full" min="-50" max="50" value="0">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accessibility Checker -->
+                <div class="bg-white rounded-2xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold mb-4">Accessibility</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Contrast Ratio</span>
+                            <span id="contrast-ratio" class="font-mono text-sm">4.5:1</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">WCAG AA</span>
+                            <span id="wcag-aa" class="accessibility-indicator accessibility-pass"></span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">WCAG AAA</span>
+                            <span id="wcag-aaa" class="accessibility-indicator accessibility-fail"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Color Extractor -->
+        <div class="mt-12">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Extract Colors from Image</h3>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                    <input type="file" id="image-upload" accept="image/*" class="hidden">
+                    <button id="upload-trigger" class="bg-gray-100 hover:bg-gray-200 px-6 py-3 rounded-lg transition-colors">
+                        Choose Image or Drag & Drop
+                    </button>
+                    <p class="text-sm text-gray-600 mt-2">Upload an image to extract its dominant colors</p>
+                </div>
+                <div id="extracted-colors" class="mt-6 grid grid-cols-5 gap-3" style="display: none;">
+                    <!-- Extracted colors will appear here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Saved Palettes -->
+        <div class="mt-12">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Your Saved Palettes</h3>
+                <div id="saved-palettes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Saved palettes will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">&copy; 2024 ChromaCraft. Professional color palette generation tools.</p>
+        </div>
+    </footer>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="tooltip"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
